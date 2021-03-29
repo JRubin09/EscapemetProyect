@@ -9,3 +9,7 @@ class Objetos:
         
         self.name = name
         self.position = position
+
+    def mostrar(self):
+
+        print(f'Name = {self.name}')

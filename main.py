@@ -81,39 +81,49 @@ def comienza_partida():
     #Game over y para Win! 
     #Crear condicion para que siga en el while 
     #Objetos? Vidas? 
-    #  
+
         dic = api[x-1]
         name = dic.get('name')
         cosas = dic.get('objects')
         room = Cuartos(name)
+        
         print(dibujos_rooms[x-1])
         print('''
-        (S) te devuelves de cuarto    <-----
-        (SPACE) avanzas al siguiente cuarto ----->''')
+        (S) Te devuelves de cuarto          <-----
+        (SPACE) Avanzas al siguiente cuarto ----->''')
         print(room.mostrar())
         movimiento = input('Hacia donde quieres ir:\n >> ')
 
         if movimiento == 'w':
 
-            position = 'center'
+            center_obj = cosas[0]
+            name = center_obj.get('name')
+            position = 'center'    
+            objeto_center = Objetos(name,position)
+            print(objeto_center.mostrar())    
 
         elif movimiento == 'a':
-
-            name = cosas.get('name')
+            
+            left_obj = cosas[1]
+            name = left_obj.get('name')
             position = 'left'    
             objeto_izq = Objetos(name,position)
-            print('dibujo')
-            
-
+            print(objeto_izq.mostrar())
 
         elif movimiento == 'd':
-            pass
+
+            right_obj = cosas[2]
+            name = right_obj.get('name')
+            position = 'right'    
+            objeto_right = Objetos(name,position)
+            print(objeto_right.mostrar())
 
         elif movimiento == ' ':
             x = x + 1
 
         elif movimiento == 's':
             x = x - 1
+
         else:
             break
 
