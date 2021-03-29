@@ -8,10 +8,10 @@ class Juegos:
     rules: float (dependiendo de lo que diga las reglas le quitare estas vidas)
     '''
 
-    def __init__(self,name,requirement,award,rules):
+    def __init__(self,name_game):
         
-        self.name = name
+        self.name_game = name_game
     
     def mostrar(self):
 
-        return((f'{self.name}').title())
+        return((f'{self.name_game}').title())

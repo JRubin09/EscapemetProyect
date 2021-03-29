@@ -7,6 +7,7 @@ from objetos import Objetos
 from api import *
 from frases import *
 from instrucciones import *
+from game_millo import millonario
 
 
 def records():
@@ -88,8 +89,8 @@ def comienza_partida():
         room = Cuartos(name)
         
         print(dibujos_rooms[x-1])
-        print('''
-        (S) Te devuelves de cuarto          <-----
+        print(f'''
+          (S)   Te devuelves de cuarto      <-----
         (SPACE) Avanzas al siguiente cuarto ----->''')
         print(room.mostrar())
         movimiento = input('Hacia donde quieres ir:\n >> ')
@@ -98,31 +99,51 @@ def comienza_partida():
 
             center_obj = cosas[0]
             name = center_obj.get('name')
-            position = 'center'    
+            position = center_obj.get('position')    
             objeto_center = Objetos(name,position)
-            print(objeto_center.mostrar())    
+            print(objeto_center.mostrar())
+            center_game = center_obj.get('game')
+            name_game = center_game.get('name')
+            juego = Juegos(name_game)
+            print(juego.mostrar())
+              
 
         elif movimiento == 'a':
             
             left_obj = cosas[1]
             name = left_obj.get('name')
-            position = 'left'    
+            position = left_obj.get('position')
             objeto_izq = Objetos(name,position)
             print(objeto_izq.mostrar())
+            left_game = left_obj.get('game')
+            name_game = left_game.get('name')
+            juego = Juegos(name_game)
+            print(juego.mostrar())
+            millonario(name_game,left_game)
 
         elif movimiento == 'd':
 
             right_obj = cosas[2]
             name = right_obj.get('name')
-            position = 'right'    
+            position = right_obj.get('position')
             objeto_right = Objetos(name,position)
             print(objeto_right.mostrar())
+            right_game = right_obj.get('game')
+            name_game = right_game.get('name')
+            juego = Juegos(name_game)
+            print(juego.mostrar())
 
         elif movimiento == ' ':
+
             x = x + 1
 
         elif movimiento == 's':
+
             x = x - 1
+
+        elif x > 5:
+
+            main()
 
         else:
             break

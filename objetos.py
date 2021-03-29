@@ -12,4 +12,4 @@ class Objetos:
 
     def mostrar(self):
 
-        print(f'Name = {self.name}')
+        return(f'Name: {self.name}')
