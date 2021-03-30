@@ -7,8 +7,9 @@ from objetos import Objetos
 from api import *
 from frases import *
 from instrucciones import *
-from game_millo import millonario
-
+from left_games import *
+from right_games import *
+from center_games import *
 
 def records():
     print(record)
@@ -48,6 +49,7 @@ def partida_nueva():
     nueva_partida = Partida(vidas, pistas, tiempo)
     # registro_jugador()
     print(nueva_partida.mostrar())
+    return nueva_partida
 
 def registro_jugador():
     username = input('Username: ')
@@ -61,8 +63,9 @@ def registro_jugador():
     nuevo_jugador = Jugador(username, contrasena, edad, avatar, tiempo_partidas, inventario)
 
     print(nuevo_jugador.mostrar())
+    return nuevo_jugador
     
-def comienza_partida():
+def comienza_partida(partida,player):
     print('Intenta Escapar')
     while True:
         try: 
@@ -90,13 +93,14 @@ def comienza_partida():
         
         print(dibujos_rooms[x-1])
         print(f'''
-          (S)   Te devuelves de cuarto      <-----
-        (SPACE) Avanzas al siguiente cuarto ----->''')
+            (S)     Te devuelves de cuarto      <-------
+          (SPACE)   Avanzas al siguiente cuarto ------->
+            (P)     Para poner PAUSA''')
         print(room.mostrar())
         movimiento = input('Hacia donde quieres ir:\n >> ')
 
         if movimiento == 'w':
-
+            #if award = 
             center_obj = cosas[0]
             name = center_obj.get('name')
             position = center_obj.get('position')    
@@ -106,7 +110,28 @@ def comienza_partida():
             name_game = center_game.get('name')
             juego = Juegos(name_game)
             print(juego.mostrar())
-              
+            if (x-1) == 0:
+                #SOUP HARD
+                #sopa_letras(name_game,center_game)
+                pass
+            elif (x-1) == 1:
+                #AHORCADO HARD
+                ahorcado(name_game, center_game)
+                pass
+            elif (x-1) == 2:
+                #LOGIC Y RESUELVE IDK
+                # solve_logic(name_game,center_game)
+                pass
+            elif (x-1) == 3:
+                #LOGICA BOOLEANA ESTA HECHO REVISAR
+                logic_bool(name_game,center_game)
+                pass
+            elif (x-1) == 4:
+                #SI COMPLETA ESTE JUEGO GANA OJOOOOOOOOOOOOOO! LE PONGO UN BREAK? IDK
+                #AQUI NO HAY JUEGO O LO INVENTO O ABRE ESA PUERTA Y GGWP
+                pass
+            else:
+                pass  
 
         elif movimiento == 'a':
             
@@ -119,7 +144,30 @@ def comienza_partida():
             name_game = left_game.get('name')
             juego = Juegos(name_game)
             print(juego.mostrar())
-            millonario(name_game,left_game)
+            if (x-1) == 0:
+                #preguntas sobre python
+                python_game(name_game,left_game)
+                pass
+            elif (x-1) == 1:
+                #preguntas matematica NO LO HE HECHO
+                pass
+            
+            elif (x-1) == 2:
+                #QUIZZIS
+                millonario(name_game,left_game)
+                #checkear award??? EN TODOSSS ALO
+                pass
+            elif (x-1) == 4:
+                #Palabras mezcladas
+                p_mezcladas(name_game,left_game)
+                pass
+    
+            else:
+                pass
+            # if name_game AAAAAAAAAAA
+            #hacer un if para cada juego del lado izquierdo??????????????????
+            #Crear como un menu que gano con su recompensa
+            #para parar el juego y mostrarle al jugador que gano
 
         elif movimiento == 'd':
 
@@ -132,7 +180,25 @@ def comienza_partida():
             name_game = right_game.get('name')
             juego = Juegos(name_game)
             print(juego.mostrar())
+            if (x-1) == 0:
+                #Adivininanzas CASI HECHO CICLOS F
+                pass
+            elif (x-1) == 1:
+                #Criptograma HARD
+                # def criptograma(name_game, right_game)
 
+                pass
+            elif (x-1) == 2:
+                #MEmoria con EMOJIS should be easy
+                pass
+            elif (x-1) == 4:
+                #RAndom number generator
+                random_number(name_game, right_game)
+
+                pass
+            else:
+                pass
+        
         elif movimiento == ' ':
 
             x = x + 1
@@ -141,8 +207,21 @@ def comienza_partida():
 
             x = x - 1
 
-        elif x > 5:
+        elif movimiento == 'p':
 
+            print(partida.mostrar())
+            sigue_partida = input('''
+                Desea continuar la partida: 
+                
+                (Y) --> si o (N) --> no\n
+                         >>''')
+            if sigue_partida == 'y':
+                pass
+            elif sigue_partida == 'n':
+                main()
+
+        elif x > 5:
+    
             main()
 
         else:
@@ -163,9 +242,9 @@ def main():
 
         if opcion == '1':
 
-            partida_nueva()
-            registro_jugador()
-            comienza_partida()
+            partida = partida_nueva()
+            player = registro_jugador()
+            comienza_partida(partida,player)
 
         elif opcion == '2':
 

@@ -26,3 +26,18 @@ def try_again():
             print('Ingrese una opcion valida')
             continuar = 1
 
+def to_be_continue():
+    print('Se agregara a tu inventario!')
+    sigue_partida = input('''
+                Para continuar la partida: 
+                        presione (C)
+
+                            >> ''').lower()
+    while sigue_partida != 'c':
+        sigue_partida = input('''
+                    Coloque la letra (C): >> ''').lower()
+    
+    if sigue_partida == 'c':
+                pass
+
+    
