@@ -124,26 +124,35 @@ def p_mezcladas(name_game,left_game):
     pregunta = random.randint(0,2)
     juego = lista_preguntas[pregunta]
     print(juego.get('question'))
-    print('Categoria:',juego.get('category'))
     palabras = juego.get('words')
-    print(palabras)
+    # print(palabras)
     buena = random.randint(0,4)
-    correcta = palabras[buena]
-    print(correcta)
+    one_word = palabras[buena]
+    # print(one_word)
+    correcta = list(one_word)
+    random.shuffle(correcta)
+    list_str = ' '.join([str(elem) for elem in correcta])
+    
+    
 
-    respuesta = input('\nIndique la respuesta:\n>>')
     continuar = 1
     while continuar == 1:
+        print('Categoria:',juego.get('category'))
+        print(list_str)
+        respuesta = input('\n >>')
+        while not ("".join(respuesta.split(" "))).isalpha():
+            respuesta = input("Ingreso invalido, ingrese solo letras:\n >>")
 
         for x in range(len(palabras)):
             
             if respuesta == palabras[x]:
                 print(win)
                 print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
-                to_be_continue()
                 continuar = 0
+                to_be_continue()
+                break
 
             elif x == (len(palabras)-1):
                 print(lose)
-                continuar = try_again()   
-
+                continuar = try_again() 
+        

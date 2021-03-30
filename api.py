@@ -38,6 +38,6 @@ def to_be_continue():
                     Coloque la letra (C): >> ''').lower()
     
     if sigue_partida == 'c':
-                pass
+        pass
 
     

@@ -9,6 +9,7 @@ from frases import *
 def adivinanzas(name_game, right_game):
     
     print(right_game.get('name'))
+    print(right_game.get('rules'))
     lista_preguntas = right_game.get('questions')
     pregunta = random.randint(0,2)
     juego = lista_preguntas[pregunta]
@@ -29,6 +30,7 @@ def adivinanzas(name_game, right_game):
                     
                 print(win)
                 print(f'Felicidades obtuviste el objeto:',right_game.get('award'))
+                continuar = 0
                 to_be_continue()
                 break
 
@@ -44,7 +46,9 @@ def memoria(name_game, right_game):
     lista_preguntas = right_game.get('questions')
     juego = lista_preguntas[0]
     print(juego.get('question'))
-    # no entiendo 
+    
+    # [['😀', '🙄', '🤮', '🥰'],\n                                                    
+
 
 def random_number(name_game, right_game):
     print(right_game.get('name'))
@@ -76,5 +80,5 @@ def random_number(name_game, right_game):
             continuar = 1
 
         elif attempts > 3:
-            
+            pass
 

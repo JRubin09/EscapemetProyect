@@ -186,6 +186,7 @@ def comienza_partida(partida,player):
             print(juego.mostrar())
             if (x-1) == 0:
                 #Adivininanzas CASI HECHO CICLOS F
+                adivinanzas(name_game,right_game)
                 pass
             elif (x-1) == 1:
                 #Criptograma HARD
