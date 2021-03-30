@@ -4,12 +4,14 @@ from jugador import Jugador
 from dibujos_cuartos import *
 from partida import Partida
 from objetos import Objetos
-from api import *
+from api import api_call
 from frases import *
 from instrucciones import *
 from left_games import *
 from right_games import *
 from center_games import *
+from narrativas import *
+from closeup_dibujos import *
 
 def records():
     print(record)
@@ -66,6 +68,8 @@ def registro_jugador():
     return nuevo_jugador
     
 def comienza_partida(partida,player):
+    
+    print(primera_narra)
     print('Intenta Escapar')
     while True:
         try: 
@@ -78,8 +82,8 @@ def comienza_partida(partida,player):
         except:
             print('Ingreso invalido')
     api = api_call()
-
-    while True:
+    continuar = 1
+    while continuar == 1:
 
     #Mientras este while se cumpla sigue en el juego hacer para
     #Game over y para Win! 
@@ -93,11 +97,11 @@ def comienza_partida(partida,player):
         
         print(dibujos_rooms[x-1])
         print(f'''
-            (S)     Te devuelves de cuarto      <-------
-          (SPACE)   Avanzas al siguiente cuarto ------->
-            (P)     Para poner PAUSA''')
+            <-------   (S)   Te devuelves de cuarto      <-------
+            -------> (SPACE) Avanzas al siguiente cuarto ------->
+                       (P)    Para poner PAUSA ''')
         print(room.mostrar())
-        movimiento = input('Hacia donde quieres ir:\n >> ')
+        movimiento = input('Hacia donde quieres ir:\n>> ').lower()
 
         if movimiento == 'w':
             #if award = 
@@ -110,26 +114,31 @@ def comienza_partida(partida,player):
             name_game = center_game.get('name')
             juego = Juegos(name_game)
             print(juego.mostrar())
+            print(dibujos_closeup[x-1][0])
             if (x-1) == 0:
                 #SOUP HARD
                 #sopa_letras(name_game,center_game)
                 pass
             elif (x-1) == 1:
                 #AHORCADO HARD
-                ahorcado(name_game, center_game)
+                # ahorcado(name_game, center_game)
                 pass
+
             elif (x-1) == 2:
-                #LOGIC Y RESUELVE IDK
-                # solve_logic(name_game,center_game)
+                #Solve logic
+                solve_logic(name_game,center_game)
                 pass
+
             elif (x-1) == 3:
                 #LOGICA BOOLEANA ESTA HECHO REVISAR
                 logic_bool(name_game,center_game)
                 pass
+
             elif (x-1) == 4:
                 #SI COMPLETA ESTE JUEGO GANA OJOOOOOOOOOOOOOO! LE PONGO UN BREAK? IDK
                 #AQUI NO HAY JUEGO O LO INVENTO O ABRE ESA PUERTA Y GGWP
                 pass
+
             else:
                 pass  
 
@@ -144,6 +153,7 @@ def comienza_partida(partida,player):
             name_game = left_game.get('name')
             juego = Juegos(name_game)
             print(juego.mostrar())
+            print(dibujos_closeup[x-1][1])
             if (x-1) == 0:
                 #preguntas sobre python
                 python_game(name_game,left_game)
@@ -161,13 +171,6 @@ def comienza_partida(partida,player):
                 #Palabras mezcladas
                 p_mezcladas(name_game,left_game)
                 pass
-    
-            else:
-                pass
-            # if name_game AAAAAAAAAAA
-            #hacer un if para cada juego del lado izquierdo??????????????????
-            #Crear como un menu que gano con su recompensa
-            #para parar el juego y mostrarle al jugador que gano
 
         elif movimiento == 'd':
 
@@ -179,6 +182,7 @@ def comienza_partida(partida,player):
             right_game = right_obj.get('game')
             name_game = right_game.get('name')
             juego = Juegos(name_game)
+            print(dibujos_closeup[x-1][2])
             print(juego.mostrar())
             if (x-1) == 0:
                 #Adivininanzas CASI HECHO CICLOS F
@@ -194,14 +198,15 @@ def comienza_partida(partida,player):
             elif (x-1) == 4:
                 #RAndom number generator
                 random_number(name_game, right_game)
+                pass
 
-                pass
-            else:
-                pass
         
         elif movimiento == ' ':
 
             x = x + 1
+            if x > 5:
+                x = x - 1
+                print('No puedes avanzar mas, termina el juego tu puedes!')
 
         elif movimiento == 's':
 
@@ -211,21 +216,19 @@ def comienza_partida(partida,player):
 
             print(partida.mostrar())
             sigue_partida = input('''
-                Desea continuar la partida: 
-                
-                (Y) --> si o (N) --> no\n
-                         >>''')
+                        Desea continuar la partida: 
+                        
+                        (Y) --> si o (N) --> no\n
+                                >>''').lower()
             if sigue_partida == 'y':
                 pass
             elif sigue_partida == 'n':
                 main()
 
-        elif x > 5:
-    
-            main()
+        elif x > 4:
+            print('No puedes avanzar mas')
+            x = x - 1
 
-        else:
-            break
 
 def main():
     print(bienvenido)

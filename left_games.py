@@ -28,6 +28,7 @@ def python_game(name_game,left_game):
     # "clue_1": "utiliza slices"
 
     print(left_game.get('name'))
+    print(left_game.get('rules'))
     lista_preguntas = left_game.get('questions')
     pregunta = random.randint(0,1)
     juego = lista_preguntas[pregunta]
@@ -46,22 +47,21 @@ def python_game(name_game,left_game):
                 logrado = input('Cual era la frase: \n>>')
                 if logrado == 'estudio en la metro ingenieria de sistemas':
                     print(win)
-                else:
-                    print(lose)
-            if codigo == 'frase[::-1]' or codigo == '[::-1]':
+                # else:
+                #     print(lose)
+            # if codigo == 'frase[::-1]' or codigo == '[::-1]':
 
-                print(win)
-                continuar = 0
+            #     print(win)
+            #     continuar = 0
 
-            elif codigo == 'salir':
-                continuar = 0
+            # elif codigo == 'salir':
+            #     continuar = 0
 
             else:
 
                 print(lose)
                 print('Perdiste media vida')
-                continuar = 1
-
+                continuar = try_again()
     else:
     #     "question": "Tengo el siguiente string: frase  = \"tengo en mi cuenta 50,00 $\".
     # Escribe una línea de código como extraer de este string 
@@ -79,14 +79,13 @@ def python_game(name_game,left_game):
         print(respuesta)
 
 
-
 # def preguntas_mate(name_game, right_game):
-
 
 
 def millonario(name_game,left_game):
 
     print(left_game.get('name'))
+    print(left_game.get('rules'))
     lista_preguntas = left_game.get('questions')
     pregunta = random.randint(0,2)
     juego = lista_preguntas[pregunta]
@@ -97,7 +96,8 @@ def millonario(name_game,left_game):
         C --> {juego.get('answer_3')}      D --> {juego.get('answer_4')}
     ''')
 
-    opcion = input('Elige una opcion:\n>>')
+    opcion = input('Elige una opcion:\n>>').lower()
+
     continuar = 1
     correcto = 'b'
     while continuar == 1:
@@ -113,28 +113,37 @@ def millonario(name_game,left_game):
         else:
             print(lose)
             continuar = try_again()
-
-
-
+    
 
 def p_mezcladas(name_game,left_game):
     
 
     print(left_game.get('name'))
+    print(left_game.get('rules'))
     lista_preguntas = left_game.get('questions')
     pregunta = random.randint(0,2)
     juego = lista_preguntas[pregunta]
     print(juego.get('question'))
     print('Categoria:',juego.get('category'))
+    palabras = juego.get('words')
+    print(palabras)
+    buena = random.randint(0,4)
+    correcta = palabras[buena]
+    print(correcta)
 
     respuesta = input('\nIndique la respuesta:\n>>')
-    palabras = juego.get('words')
+    continuar = 1
+    while continuar == 1:
 
-    for x in range(len(palabras)):
-        
-        if respuesta == palabras[x]:
-            print('win')
+        for x in range(len(palabras)):
+            
+            if respuesta == palabras[x]:
+                print(win)
+                print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
+                to_be_continue()
+                continuar = 0
 
-        else:
-            print('lose')
+            elif x == (len(palabras)-1):
+                print(lose)
+                continuar = try_again()   
 

@@ -40,20 +40,22 @@ def adivinanzas(name_game, right_game):
 
 def memoria(name_game, right_game):
     print(right_game.get('name'))
+    print(right_game.get('rules'))
     lista_preguntas = right_game.get('questions')
-    
-    pregunta = random.randint(0,2)
-    juego = lista_preguntas[pregunta]
+    juego = lista_preguntas[0]
     print(juego.get('question'))
+    # no entiendo 
 
 def random_number(name_game, right_game):
     print(right_game.get('name'))
+    print(right_game.get('rules'))
     lista_preguntas = right_game.get('questions')
     juego = lista_preguntas[0]
     print(juego.get('question'))
 
     correcto = random.randint(1,15)
     continuar = 1
+    attempts = 0
     while continuar == 1:
         while True:
             try: 
@@ -63,10 +65,16 @@ def random_number(name_game, right_game):
                 print("Ingreso Invalido.")
 
         if respuesta == correcto:
-            print('win')
+            print(win)
+            print(f'Felicidades obtuviste el objeto:',right_game.get('award'))
+            to_be_continue()
             continuar = 0
-        else:    
+
+        elif respuesta != correcto:
             print('Equivocado, siga intentando\n')
+            attempts = attempts + 1
             continuar = 1
 
-        
+        elif attempts > 3:
+            
+
