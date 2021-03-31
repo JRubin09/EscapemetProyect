@@ -12,6 +12,29 @@ class Jugador:
         
     def mostrar(self):
         
-        return(f"Username: {self.username}\nEdad: {self.edad}\nAvatar: {self.avatar}\n")
+        return(f"Username: {self.username}\nEdad: {self.edad}\nAvatar: {self.avatar}\nInventario: {self.inventario}")
     
+    def agrego_objeto(self, item):
+
+        self.inventario.append(item)
+        
+
+    def check_inventario(self,item):
+
+        
+        valor_bool = False
+
+        for x in range(len(self.inventario)):
+
+            if item == self.inventario[x]:
+
+                valor_bool = True
+                break
+
+        return valor_bool    
+
+
+
+
+        
    

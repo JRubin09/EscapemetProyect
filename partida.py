@@ -17,4 +17,8 @@ class Partida:
     def mostrar_tiempo (self):
         return(f'{self.tiempo}')
 
+    # def quito_vida(self):
+
+    # def agrego_vida(self):
+
     

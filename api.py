@@ -40,4 +40,17 @@ def to_be_continue():
     if sigue_partida == 'c':
         pass
 
+def buen_continue():
+    sigue_partida = input('''
+                Para continuar la partida: 
+                        presione (C)
+
+                            >> ''').lower()
+    while sigue_partida != 'c':
+        sigue_partida = input('''
+                    Coloque la letra (C):>> ''').lower()
+    
+    if sigue_partida == 'c':
+        pass
+
     

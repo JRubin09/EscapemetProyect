@@ -2,11 +2,12 @@ from api import *
 import random
 from frases import *
 
-# def criptograma(name_game, right_game):
+# def criptograma(name_game, right_game,player):
 #     print(right_game.get('name'))
 #     lista_preguntas = right_game.get('questions')
+#     player.agrego_objeto(right_game.get('award'))
 
-def adivinanzas(name_game, right_game):
+def adivinanzas(name_game, right_game,player):
     
     print(right_game.get('name'))
     print(right_game.get('rules'))
@@ -31,6 +32,7 @@ def adivinanzas(name_game, right_game):
                 print(win)
                 print(f'Felicidades obtuviste el objeto:',right_game.get('award'))
                 continuar = 0
+                player.agrego_objeto(right_game.get('award'))
                 to_be_continue()
                 break
 
@@ -39,18 +41,22 @@ def adivinanzas(name_game, right_game):
                 continuar = try_again()                
 
 
-
-def memoria(name_game, right_game):
+def memoria(name_game, right_game, player):
     print(right_game.get('name'))
     print(right_game.get('rules'))
     lista_preguntas = right_game.get('questions')
     juego = lista_preguntas[0]
     print(juego.get('question'))
     
-    # [['😀', '🙄', '🤮', '🥰'],\n                                                    
+    # [[['😀', 'X'],['🙄','X'],['🤮','X'],['🥰','X']]                                                   
+    #  [['🤮', 'X'],['😨','X'],['🤓','X'],['😷','X']]                                                   
+    #  [['😨', 'X'],['🤓','X'],['🥰','X'],['😷','X']]                                                   
+    #  [['🤑', 'X'],['🤑','X'],['🙄','X'],['😀','X']]]    
+
+    # player.agrego_objeto(right_game.get('award'))                                               
 
 
-def random_number(name_game, right_game):
+def random_number(name_game, right_game,player):
     print(right_game.get('name'))
     print(right_game.get('rules'))
     lista_preguntas = right_game.get('questions')
@@ -71,14 +77,19 @@ def random_number(name_game, right_game):
         if respuesta == correcto:
             print(win)
             print(f'Felicidades obtuviste el objeto:',right_game.get('award'))
+            player.agrego_objeto(right_game.get('award'))
             to_be_continue()
             continuar = 0
 
         elif respuesta != correcto:
-            print('Equivocado, siga intentando\n')
+            print('Equivocado, sigue intentando\n')
             attempts = attempts + 1
             continuar = 1
 
-        elif attempts > 3:
-            pass
+        if attempts >= 3:
+            print(lose)
+            print('         Perdiste -____-')
+            #quitarle cuantas vidas sean 
+            continuar = try_again()
+            
 

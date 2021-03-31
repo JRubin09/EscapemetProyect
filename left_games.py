@@ -1,9 +1,11 @@
 from api import *
 import random
 from frases import *
+# import sympy
+import math
+from jugador import Jugador
 
-
-def python_game(name_game,left_game):
+def python_game(name_game,left_game,player):
     
 
     # "question": "Tengo el siguiente string: frase  = \"tengo en mi cuenta 50,00 $\".
@@ -46,6 +48,7 @@ def python_game(name_game,left_game):
                 print(" ".join(a))
                 logrado = input('Cual era la frase: \n>>')
                 if logrado == 'estudio en la metro ingenieria de sistemas':
+                    player.agrego_objeto(left_game.get('award'))
                     print(win)
                 # else:
                 #     print(lose)
@@ -79,10 +82,77 @@ def python_game(name_game,left_game):
         print(respuesta)
 
 
-# def preguntas_mate(name_game, right_game):
+def preguntas_mate(name_game, left_game,player):
 
+    print(left_game.get('name'))
+    print(left_game.get('rules'))
+    lista_preguntas = left_game.get('questions')
+    pregunta = random.randint(0,2)
+    juego = lista_preguntas[pregunta]
+    print(juego.get('question'))
+    # continuar = 1
+    # while continuar == 1:
 
-def millonario(name_game,left_game):
+    #     if pregunta == 0:
+    #         correcto = Derivate((sen(pi))/2)
+    #         while True:
+    #             try:
+    #                 respuesta = int(input('Indique su respuesta:\n >>'))
+    #                 break
+    #             except:
+    #                 print('Ingreso invalido')
+            
+    #         if respuesta == correcto:
+    #             print(win)
+    #             print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
+    #             continuar = 0
+    #             to_be_continue()
+    #             break
+    #         else:
+    #             print(lose)
+    #             continuar = try_again()
+        
+    #     elif pregunta == 1:
+    #         correcto = Derivate((cos(pi/2))/2 - (tan(pi/2)/5))
+    #         while True:
+    #             try:
+    #                 respuesta = int(input('Indique su respuesta:\n >>'))
+    #                 break
+    #             except:
+    #                 print('Ingreso invalido')
+            
+    #         if respuesta == correcto:
+    #             print(win)
+    #             print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
+    #             continuar = 0
+                #   player.agrego_objeto(left_game.get('award'))
+    #             to_be_continue()
+    #             break
+    #         else:
+    #             print(lose)
+    #             continuar = try_again()
+        
+    #     elif pregunta == 2:
+    #         correcto = Derivate((sen(pi/3))/5 - tan(pi/3))
+    #         while True:
+    #             try:
+    #                 respuesta = int(input('Indique su respuesta:\n >>'))
+    #                 break
+    #             except:
+    #                 print('Ingreso invalido')
+            
+    #         if respuesta == correcto:
+    #             print(win)
+    #             print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
+    #             continuar = 0
+    #             to_be_continue()
+    #             break
+    #         else:
+    #             print(lose)
+    #             continuar = try_again()
+                     
+
+def millonario(name_game,left_game,player):
 
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -107,6 +177,8 @@ def millonario(name_game,left_game):
         if opcion == correcto:
             print(win)
             print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
+            player.agrego_objeto(left_game.get('award'))
+            print(player.mostrar())
             to_be_continue()
             #meterlo en el inventario?
             break
@@ -115,9 +187,8 @@ def millonario(name_game,left_game):
             continuar = try_again()
     
 
-def p_mezcladas(name_game,left_game):
+def p_mezcladas(name_game,left_game,player):
     
-
     print(left_game.get('name'))
     print(left_game.get('rules'))
     lista_preguntas = left_game.get('questions')
@@ -133,8 +204,6 @@ def p_mezcladas(name_game,left_game):
     random.shuffle(correcta)
     list_str = ' '.join([str(elem) for elem in correcta])
     
-    
-
     continuar = 1
     while continuar == 1:
         print('Categoria:',juego.get('category'))
@@ -148,6 +217,7 @@ def p_mezcladas(name_game,left_game):
             if respuesta == palabras[x]:
                 print(win)
                 print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
+                player.agrego_objeto(left_game.get('award'))
                 continuar = 0
                 to_be_continue()
                 break
@@ -155,4 +225,4 @@ def p_mezcladas(name_game,left_game):
             elif x == (len(palabras)-1):
                 print(lose)
                 continuar = try_again() 
-        
+
