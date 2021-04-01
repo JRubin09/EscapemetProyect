@@ -5,7 +5,7 @@ from frases import *
 import math
 from jugador import Jugador
 
-def python_game(name_game,left_game,player):
+def python_game(name_game,left_game,player, partida):
     
 
     # "question": "Tengo el siguiente string: frase  = \"tengo en mi cuenta 50,00 $\".
@@ -63,7 +63,7 @@ def python_game(name_game,left_game,player):
             else:
 
                 print(lose)
-                print('Perdiste media vida')
+                partida.quito_vida(1/2)
                 continuar = try_again()
     else:
     #     "question": "Tengo el siguiente string: frase  = \"tengo en mi cuenta 50,00 $\".
@@ -82,7 +82,7 @@ def python_game(name_game,left_game,player):
         print(respuesta)
 
 
-def preguntas_mate(name_game, left_game,player):
+def preguntas_mate(name_game, left_game,player, partida):
 
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -90,6 +90,7 @@ def preguntas_mate(name_game, left_game,player):
     pregunta = random.randint(0,2)
     juego = lista_preguntas[pregunta]
     print(juego.get('question'))
+    # si gana  ensenarselo en pantalla etc. partida.agrego_vida(1)
     # continuar = 1
     # while continuar == 1:
 
@@ -149,10 +150,11 @@ def preguntas_mate(name_game, left_game,player):
     #             break
     #         else:
     #             print(lose)
+                # partida.quito_vida()
     #             continuar = try_again()
                      
 
-def millonario(name_game,left_game,player):
+def millonario(name_game,left_game,player, partida):
 
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -167,27 +169,39 @@ def millonario(name_game,left_game,player):
     ''')
 
     opcion = input('Elige una opcion:\n>>').lower()
-
     continuar = 1
     correcto = 'b'
     while continuar == 1:
         # while (not opcion.isnumeric()) or (int(opcion) < 1) or (int(opcion) > 4): 
         #     opcion = input("Ingreso invalido, ingrese una opcion:\n>>")
 
-        if opcion == correcto:
+        if opcion.lower() == correcto:
+
             print(win)
             print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
             player.agrego_objeto(left_game.get('award'))
-            print(player.mostrar())
+            # print(player.mostrar())
             to_be_continue()
-            #meterlo en el inventario?
             break
+
+        elif opcion.lower() == 'pista':
+            
+            if partida.quito_pistas(1) == True:
+
+                print(juego.get('clue_1'))
+            
+            elif partida.quito_pistas(1) == False:
+
+                buen_continue()
+
         else:
+
             print(lose)
+            partida.quito_vida(1/2)
             continuar = try_again()
     
 
-def p_mezcladas(name_game,left_game,player):
+def p_mezcladas(name_game,left_game,player, partida):
     
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -207,7 +221,7 @@ def p_mezcladas(name_game,left_game,player):
     continuar = 1
     while continuar == 1:
         print('Categoria:',juego.get('category'))
-        print(list_str)
+        print(list_str.join(" "))
         respuesta = input('\n >>')
         while not ("".join(respuesta.split(" "))).isalpha():
             respuesta = input("Ingreso invalido, ingrese solo letras:\n >>")
@@ -215,6 +229,7 @@ def p_mezcladas(name_game,left_game,player):
         for x in range(len(palabras)):
             
             if respuesta == palabras[x]:
+
                 print(win)
                 print(f'Felicidades obtuviste el objeto:',left_game.get('award'))
                 player.agrego_objeto(left_game.get('award'))
@@ -223,6 +238,12 @@ def p_mezcladas(name_game,left_game,player):
                 break
 
             elif x == (len(palabras)-1):
+
                 print(lose)
+                partida.quito_vida(1/2)
                 continuar = try_again() 
 
+            elif x == 'pista':
+
+                print('Aqui no hay pistas')
+                pass
