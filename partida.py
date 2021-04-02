@@ -17,12 +17,20 @@ class Partida:
         return(f"Vidas: {self.vidas}\nPistas: {self.pistas}\nTiempo: {self.tiempo}\n")
 
     def mostrar_tiempo(self):
+
         return(f'{self.tiempo}')
 
     def quito_vida(self,num):
         
-        self.vidas = float(self.vidas) - num  
+        self.vidas = self.vidas - num 
+
         return(f'{self.vidas}')
+    
+    def game_over(self):
+
+        if self.vidas <= 0:
+
+            return True
 
     def quito_pista(self,num):
         
@@ -34,12 +42,14 @@ class Partida:
             return False
 
         else:
+
             print(f'Perdiste una pista te quedan: {self.pistas}')
             return True
 
     def agrego_vida(self,num):
 
         self.vidas = self.vidas + num
+
         
 
     

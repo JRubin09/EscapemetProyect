@@ -1,6 +1,7 @@
 from partida import Partida
 
 class Jugador:
+    
     def __init__(self, username, contrasena, edad, avatar, tiempo_partidas, inventario):
 
         self.username = username
