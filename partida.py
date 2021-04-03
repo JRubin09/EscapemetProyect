@@ -43,7 +43,7 @@ class Partida:
 
         else:
 
-            print(f'Perdiste una pista te quedan: {self.pistas}')
+            print(f'Perdiste una pista te quedan: {self.pistas} en todo el juego')
             return True
 
     def agrego_vida(self,num):

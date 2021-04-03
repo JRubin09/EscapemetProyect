@@ -8,9 +8,11 @@ from jugador import Jugador
 from objetos import Objetos
 from partida import Partida
 from games_all import *
+import time
 
 def records():
     print(record)
+    
 
 def partida_nueva():
 
@@ -66,12 +68,13 @@ def registro_jugador():
             username = input('Username: ')
             contrasena = input('Contrasena: ')
             edad = int(input('Edad: '))
-            avatar = input('Elige el Avatar de tu jugador: ')
             break
 
         except:
             print('Ingresaste un dato invalido')
 
+    avatar = input('''Elige el Avatar de tu jugador: 
+    1. ''')
     #hacer un if y darle nombre a nuevos avatares que el jugador pueda elegir
     tiempo_partidas = []
     #agrego al inventario objetos que no tengo hecho los juegos de una vez para probar el juego
@@ -83,12 +86,7 @@ def registro_jugador():
     
 def comienza_partida(partida,player):
 
-    player.agrego_objeto('carnet')
-    player.agrego_objeto('Mensaje: Si estas gradudado puedes pisar el Samán')
-    player.agrego_objeto('cable HDMI')
-    player.agrego_objeto('libro de matemáticas')
     player.agrego_objeto(["Titulo Universitario","Mensaje"])
-    player.agrego_objeto('llave')
     
     primer_discurso(partida)
     print(ready)
@@ -96,16 +94,17 @@ def comienza_partida(partida,player):
     
     x = 1
     api = api_call()
+    
     continuar = 1
 
     while continuar == 1:
 
-        dic = api[x-1]
+        dic = api[x]
         name = dic.get('name')
         cosas = dic.get('objects')
         room = Cuartos(name)
         
-        print(dibujos_rooms[x-1])
+        print(dibujos_rooms[x])
         print(f'''
             <-------   (S)   Te devuelves de cuarto      <-------
             -------> (SPACE) Avanzas al siguiente cuarto ------->
@@ -116,7 +115,7 @@ def comienza_partida(partida,player):
 
         movimiento = input('Hacia donde te diriges?\n>> ')      
 
-        if movimiento == 'w':
+        if movimiento.lower() == 'w':
 
             center_obj = cosas[0]
             name = center_obj.get('name')
@@ -129,7 +128,7 @@ def comienza_partida(partida,player):
             # print(juego.mostrar())
             print(objeto_center.mostrar())
 
-            if x == 3:
+            if x == 2:
 
                 print('NOOOOO, pisaste el saman perdiste una vida cuidado!!')
                 partida.quito_vida(1)
@@ -151,31 +150,33 @@ def comienza_partida(partida,player):
 
                 if valido_premio == True:
 
-                    print(dibujos_closeup[x-1][0])
+                    print(dibujos_closeup[x][0])
                     print('Ya pasaste por aqui y ganaste, tienes en tu INVENTARIO -->',center_game.get('award'))
                     buen_continue()
                     pass
 
                 elif valido_requirement == True or center_game.get('requirement') == False:
                         
-                    print(dibujos_closeup[x-1][0])
-                    if (x-1) == 0:
+                    print(dibujos_closeup[x][0])
+
+                    if x == 0:
                         #SOUP HARD
                         #sopa_letras(name_game,center_game,player, partida)
                         pass
 
-                    elif (x-1) == 1:
+                    elif x == 1:
+
                         #AHORCADO HARD
-                        # ahorcado(name_game, center_game,player, partida)
+                        ahorcado(name_game, center_game,player, partida)
                         pass
 
-                    elif (x-1) == 2:
+                    elif x == 2:
                         #Solve logic
 
                         solve_logic(name_game,center_game,player, partida)
                         pass
 
-                    elif (x-1) == 3:
+                    elif x == 3:
                         #LOGICA BOOLEANA ESTA HECHO REVISAR
 
                         logic_bool(name_game,center_game,player, partida)
@@ -193,7 +194,7 @@ def comienza_partida(partida,player):
                             buen_continue()
                             pass
 
-                    elif (x-1) == 4:
+                    elif x == 4:
                         #SI COMPLETA ESTE JUEGO GANA OJOOOOOOOOOOOOOO! LE PONGO UN BREAK? IDK
                         #AQUI NO HAY JUEGO O LO INVENTO O ABRE ESA PUERTA Y GGWP
                         pass
@@ -216,7 +217,7 @@ def comienza_partida(partida,player):
                 print('Ingreso invalido, vuelve al cuarto donde estabas!')
                 buen_continue()        
                 
-        elif movimiento == 'a':
+        elif movimiento.lower() == 'a':
 
             left_obj = cosas[1]
             name = left_obj.get('name')
@@ -239,33 +240,33 @@ def comienza_partida(partida,player):
 
                 if valido_premio == True:
 
-                    print(dibujos_closeup[x-1][1])
+                    print(dibujos_closeup[x][1])
                     print('Ya pasaste por aqui y ganaste, tienes en tu INVENTARIO -->',left_game.get('award'))
                     buen_continue()
                     pass
 
                 elif valido_requirement == True or left_game.get('requirement') == False:
 
-                    print(dibujos_closeup[x-1][1])
-                    if (x-1) == 0:
+                    print(dibujos_closeup[x][1])
+                    if x == 0:
 
                         python_game(name_game,left_game,player, partida)
                         pass
 
-                    elif (x-1) == 1:
+                    elif x == 1:
 
                         #preguntas matematica
                         preguntas_mate(name_game,left_game,player,partida)
 
                         pass
                     
-                    elif (x-1) == 2:
+                    elif x == 2:
 
                         #QUIZZIS
                         millonario(name_game,left_game,player, partida)
                         pass
 
-                    elif (x-1) == 4:
+                    elif x == 4:
 
                         #Palabras mezcladas
                         p_mezcladas(name_game,left_game,player, partida)
@@ -285,7 +286,7 @@ def comienza_partida(partida,player):
                 print('Ingreso invalido, vuelve al cuarto donde estabas!!\n')
                 buen_continue()
 
-        elif movimiento == 'd':
+        elif movimiento.lower() == 'd':
 
             right_obj = cosas[2]
             name = right_obj.get('name')
@@ -306,7 +307,7 @@ def comienza_partida(partida,player):
 
                 if valido_premio == True:
 
-                    print(dibujos_closeup[x-1][2])
+                    print(dibujos_closeup[x][2])
                     print('Ya pasaste por aqui y ganaste, tienes en tu INVENTARIO-->',right_game.get('award'))
                     buen_continue()
                     pass
@@ -314,27 +315,28 @@ def comienza_partida(partida,player):
                 
                 elif valido_requirement == True or right_game.get('requirement') == False:
 
-                    print(dibujos_closeup[x-1][2])
-                    if (x-1) == 0:
+                    print(dibujos_closeup[x][2])
+
+                    if x == 0:
 
                         
                         adivinanzas(name_game,right_game,player, partida)
                         pass
 
-                    elif (x-1) == 1:
+                    elif x == 1:
 
                         
-                        #Criptograma HARD
-                        # def criptograma(name_game, right_game,player, partida)
+                        #Criptograma 
+                        criptograma(name_game, right_game,player, partida)
                         pass
 
-                    elif (x-1) == 2:
+                    elif x == 2:
 
                         #MEmoria con EMOJIS should be easy
                         memoria(name_game, right_game,player, partida)
                         pass
 
-                    elif (x-1) == 4:
+                    elif x == 4:
 
                         #RAndom number generator
                         random_number(name_game, right_game,player, partida)
@@ -356,24 +358,67 @@ def comienza_partida(partida,player):
         
         elif movimiento == ' ':
 
-            x = x + 1
-            if x > 5:
+            if x == 0:
 
-                x = x - 1
-                print('No puedes avanzar mas, termina el juego tu puedes!')
-                buen_continue() 
+                x = 4
+            
+            elif x == 1:
 
-        elif movimiento == 's':
+                x = 3
 
-            x = x - 1
-
-            if x < 0:
-                x = x + 1
-                print('Para donde vas? No vas a ayudarnos ')
-                buen_continue()
+            elif x == 2:
                 
+                x = 1
+            
+            elif x == 3:
+                # requirement para pasar 
+                # logic_bool(name_game,center_game,player, partida)
+                valido_obj_ganado = player.check_inventario(center_game.get('award'))
 
-        elif movimiento == 'p':
+                if valido_obj_ganado == True:
+
+                    print('Felicidades por desbloquear un nuevo cuarto atento con lo que obtienes aqui!')
+                    buen_continue()
+                    x = 0
+
+                elif valido_obj_ganado == False:
+
+                    print('Lo siento tienes que completar el juego para pasar')
+                    buen_continue()
+                    x = 3
+
+            elif x == 4:
+
+                print('Pa onde vas tu? ')
+                buen_continue()
+                x = 4
+    
+        elif movimiento.lower() == 's':
+
+            if x == 0:
+    
+                x = 3
+            
+
+            elif x == 1:
+
+                x = 2
+
+            elif x == 2:
+
+                print('Pa onde vas tu? ')
+                buen_continue()
+                x = 2
+            
+            elif x == 3:
+
+                x = 1
+
+            elif x == 4:
+
+                x = 0
+                
+        elif movimiento.lower() == 'p':
 
             print(partida.mostrar())
             sigue_partida = input('''
@@ -392,11 +437,7 @@ def comienza_partida(partida,player):
                 menu_juego()
                 break
 
-        elif x > 4:
-
-            print('Pa onde vas tu? ')
-            buen_continue()
-            x = x - 1
+        
         
         else:
 
