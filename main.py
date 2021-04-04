@@ -9,11 +9,11 @@ from objetos import Objetos
 from partida import Partida
 from games_all import *
 import time
+import datetime
 
 def records():
     print(record)
     
-
 def partida_nueva():
 
     print(nueva)
@@ -45,7 +45,7 @@ def partida_nueva():
 
         print(hard)
         vidas = float(1)
-        pistas = 1
+        pistas = 2
         tiempo = '5 minutos'
        
     elif opcion == '4':
@@ -74,9 +74,37 @@ def registro_jugador():
             print('Ingresaste un dato invalido')
 
     avatar = input('''Elige el Avatar de tu jugador: 
-    1. ''')
+    1. Scharifker
+    2. Eugenio Mendoza
+    3. Pelusa
+    4. Gandhi
+    5. Ghost
+    6. Richtofen
+    7. Robert D.jr\n >>''')
+    if avatar == '1':
+        avatar = 'Sharifker'
+
+    elif avatar == '2':
+        avatar = 'Eugenio Mendoza'
+
+    elif avatar == '3':
+        avatar = 'Pelusa'
+
+    elif avatar == '4':
+        avatar = 'Gandhi'
+
+    elif avatar == '5':
+        avatar = 'Ghost'
+
+    elif avatar == '6':
+        avatar = 'Richtofen'
+
+    elif avatar == '7':
+        avatar = 'Robert D.jr'
+
     #hacer un if y darle nombre a nuevos avatares que el jugador pueda elegir
     tiempo_partidas = []
+
     #agrego al inventario objetos que no tengo hecho los juegos de una vez para probar el juego
     inventario = '.'
 
@@ -90,13 +118,15 @@ def comienza_partida(partida,player):
     
     primer_discurso(partida)
     print(ready)
-    buen_continue()
+    time.sleep(8)
     
-    x = 1
-    api = api_call()
-    
-    continuar = 1
+    segundo_discurso(player)
+    time.sleep(5)
 
+    x = 1
+    api = api_call()  
+    continuar = 1
+    instanteInicial = datetime.datetime.now().minute   
     while continuar == 1:
 
         dic = api[x]
@@ -105,11 +135,8 @@ def comienza_partida(partida,player):
         room = Cuartos(name)
         
         print(dibujos_rooms[x])
-        print(f'''
-            <-------   (S)   Te devuelves de cuarto      <-------
-            -------> (SPACE) Avanzas al siguiente cuarto ------->
-                       (P)    Para poner PAUSA ''')
         print(room.mostrar())
+        print('Puedes ver el Menu apretando la letra (M)')
         
                 # ('Movimiento invalido controlate vale es 2D y en la terminal de window') 
 
@@ -134,7 +161,7 @@ def comienza_partida(partida,player):
                 partida.quito_vida(1)
                 if partida.game_over() == True:
     
-                    print (gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
 
             print(f'Bienvenido a ',center_game.get('name'),center_game.get('message_requirement'))
@@ -149,11 +176,16 @@ def comienza_partida(partida,player):
                 # print(valido_requirement)
 
                 if valido_premio == True:
+                    if x == 0 or x == 2:
+                        
+                        pass
 
-                    print(dibujos_closeup[x][0])
-                    print('Ya pasaste por aqui y ganaste, tienes en tu INVENTARIO -->',center_game.get('award'))
-                    buen_continue()
-                    pass
+                    else:
+
+                        print(dibujos_closeup[x][0])
+                        print('Ya pasaste por aqui y ganaste, tienes en tu INVENTARIO -->',center_game.get('award'))
+                        time.sleep(2)
+                        
 
                 elif valido_requirement == True or center_game.get('requirement') == False:
                         
@@ -161,42 +193,43 @@ def comienza_partida(partida,player):
 
                     if x == 0:
                         #SOUP HARD
-                        #sopa_letras(name_game,center_game,player, partida)
+                        sopa_letras(name_game,center_game,player, partida, instanteInicial)
                         pass
 
                     elif x == 1:
 
                         #AHORCADO HARD
-                        ahorcado(name_game, center_game,player, partida)
+                        ahorcado(name_game, center_game,player, partida, instanteInicial)
                         pass
 
                     elif x == 2:
                         #Solve logic
 
-                        solve_logic(name_game,center_game,player, partida)
+                        solve_logic(name_game,center_game,player, partida, instanteInicial)
                         pass
 
                     elif x == 3:
                         #LOGICA BOOLEANA ESTA HECHO REVISAR
 
-                        logic_bool(name_game,center_game,player, partida)
+                        logic_bool(name_game,center_game,player, partida, instanteInicial)
                         valido_obj_ganado = player.check_inventario(center_game.get('award'))
 
                         if valido_obj_ganado == True:
 
                             print('Felicidades por desbloquear un nuevo cuarto atento con lo que obtienes aqui!')
-                            buen_continue()
-                            x = x + 1
+                            time.sleep(3)
+                            x = 0
 
                         elif valido_obj_ganado == False:
 
                             print('Lo siento tienes que completar el juego para pasar')
-                            buen_continue()
+                            time.sleep(2)
                             pass
 
                     elif x == 4:
                         #SI COMPLETA ESTE JUEGO GANA OJOOOOOOOOOOOOOO! LE PONGO UN BREAK? IDK
                         #AQUI NO HAY JUEGO O LO INVENTO O ABRE ESA PUERTA Y GGWP
+                        refranes(player, partida, instanteInicial)
                         pass
 
                     else:
@@ -250,26 +283,26 @@ def comienza_partida(partida,player):
                     print(dibujos_closeup[x][1])
                     if x == 0:
 
-                        python_game(name_game,left_game,player, partida)
+                        python_game(name_game,left_game,player, partida, instanteInicial)
                         pass
 
                     elif x == 1:
 
                         #preguntas matematica
-                        preguntas_mate(name_game,left_game,player,partida)
+                        preguntas_mate(name_game,left_game,player, partida, instanteInicial)
 
                         pass
                     
                     elif x == 2:
 
                         #QUIZZIS
-                        millonario(name_game,left_game,player, partida)
+                        millonario(name_game,left_game,player, partida, instanteInicial)
                         pass
 
                     elif x == 4:
 
                         #Palabras mezcladas
-                        p_mezcladas(name_game,left_game,player, partida)
+                        p_mezcladas(name_game,left_game,player, partida, instanteInicial)
                         pass
 
                 else:
@@ -296,65 +329,69 @@ def comienza_partida(partida,player):
             name_game = right_game.get('name')
 
             print(objeto_right.mostrar())
-            print(f'Bienvenido a ',right_game.get('name'),right_game.get('message_requirement'))
+            if right_game.get('message_requirement') != None:
+
+                print(f'Bienvenido a ',right_game.get('name'),right_game.get('message_requirement'))
+                time.sleep(3)
+
+            valido_requirement = player.check_inventario(right_game.get('requirement'))
+            valido_premio = player.check_inventario(right_game.get('award'))
+
+            if valido_premio == True:
+
+                print(dibujos_closeup[x][2])
+                print('Ya pasaste por aqui y ganaste, ya obtuviste -->',right_game.get('award'))
+                
+                time.sleep(5)
+                pass
+                
             
-            print('Puedes intentar entrar si quieres, pero si no tienes lo requerido no pasaras')
-            comprobando = input('Deseas pasar? (Y) ==> si (N) ==> no\n >>')
+            elif valido_requirement == True or right_game.get('requirement') == False:
 
-            if comprobando.lower() == 'y':
-                valido_requirement = player.check_inventario(right_game.get('requirement'))
-                valido_premio = player.check_inventario(right_game.get('award'))
+                print(dibujos_closeup[x][2])
 
-                if valido_premio == True:
+                if x == 0:
 
-                    print(dibujos_closeup[x][2])
-                    print('Ya pasaste por aqui y ganaste, tienes en tu INVENTARIO-->',right_game.get('award'))
-                    buen_continue()
-                    pass
+                    contra = input('Contraseña: ')
+
+                    while not ("".join(contra.split(" "))).isalpha():
+                        contra = input("Ingreso invalido, ingrese el contra :\n >> ")
+
+                    if contra == 'escapandoando':
+
+                        adivinanzas(name_game,right_game,player, partida, instanteInicial)
+                        pass
+
+                    else:
+
+                        print('Contraseña invalida, fuera de aqui')
+                        time.sleep(2)
+                        pass
+
+                elif x == 1:
+
                     
+                    #Criptograma 
+                    criptograma(name_game, right_game,player, partida, instanteInicial)
+                    pass
+
+                elif x == 2:
+
+                    #MEmoria con EMOJIS should be easy
+                    memoria(name_game, right_game,player, partida, instanteInicial)
+                    pass
+
+                elif x == 4:
+
+                    #RAndom number generator
+                    random_number(name_game, right_game,player, partida, instanteInicial)
+                    pass
+
+            else:
+
+                print(f'Lo siento no puedes pasar, necesitas -->', right_game.get('requirement'))
+                time.sleep(3)  
                 
-                elif valido_requirement == True or right_game.get('requirement') == False:
-
-                    print(dibujos_closeup[x][2])
-
-                    if x == 0:
-
-                        
-                        adivinanzas(name_game,right_game,player, partida)
-                        pass
-
-                    elif x == 1:
-
-                        
-                        #Criptograma 
-                        criptograma(name_game, right_game,player, partida)
-                        pass
-
-                    elif x == 2:
-
-                        #MEmoria con EMOJIS should be easy
-                        memoria(name_game, right_game,player, partida)
-                        pass
-
-                    elif x == 4:
-
-                        #RAndom number generator
-                        random_number(name_game, right_game,player, partida)
-                        pass
-
-                else:
-
-                    print(f'Lo siento no puedes pasar, necesitas -->', right_game.get('requirement'))
-                    buen_continue()  
-
-            elif comprobando.lower() == 'n':
-                
-                pass            
-            
-            elif comprobando != 'n' and comprobando != 'y':
-
-                print('Ingreso invalido, vuelve al cuarto donde estabas!')
-                buen_continue()                    
         
         elif movimiento == ' ':
 
@@ -372,16 +409,18 @@ def comienza_partida(partida,player):
             
             elif x == 3:
                 # requirement para pasar 
-                # logic_bool(name_game,center_game,player, partida)
+                # logic_bool(name_game,center_game,player, partida, instanteInicial)
+                center_obj = cosas[0]
+                center_game = center_obj.get('game')
                 valido_obj_ganado = player.check_inventario(center_game.get('award'))
 
                 if valido_obj_ganado == True:
 
-                    print('Felicidades por desbloquear un nuevo cuarto atento con lo que obtienes aqui!')
+                    # print('Felicidades por desbloquear un nuevo cuarto atento con lo que obtienes aqui!')
                     buen_continue()
                     x = 0
 
-                elif valido_obj_ganado == False:
+                else:
 
                     print('Lo siento tienes que completar el juego para pasar')
                     buen_continue()
@@ -390,7 +429,7 @@ def comienza_partida(partida,player):
             elif x == 4:
 
                 print('Pa onde vas tu? ')
-                buen_continue()
+                time.sleep(2)
                 x = 4
     
         elif movimiento.lower() == 's':
@@ -418,29 +457,34 @@ def comienza_partida(partida,player):
 
                 x = 0
                 
-        elif movimiento.lower() == 'p':
+        elif movimiento.lower() == 'm':
 
             print(partida.mostrar())
-            sigue_partida = input('''
-                        Desea continuar la partida: 
-                        
-                        (Y) --> si o (N) --> no\n
-                                >>''').lower()
-            
-            while not ("".join(movimiento.split(" "))).isalpha():   
-                movimiento = input("Ingreso invalido, ingrese el movimiento :\n >> ")
+            print(f'''
+            <-------   (S)      Te devuelves de cuarto     (S)    <-------
+            -------> (SPACE) Avanzas al siguiente cuarto (SPACE) ------->
+                    (P)        Para poner PAUSA         (P)
+            Utiliza las teclas:     (W)  Centro (W) 
+                                    (A)Izquierda(A)
+                                    (D)  Derech (D) 
+            Acuerdate que puedes usar la palabra (pista) en algunos juegos!\n''')
+            sigue_partida = input('Este es el menu lee cuidadosamente y para salirte del juego utiliza la letra (N) para seguir en el juego (Y)')
+            while not ("".join(sigue_partida.split(" "))).isalpha():   
+                sigue_partida = input("Ingreso invalido:\n >> ")
                     
             if sigue_partida == 'y':
+                
                 pass
 
             elif sigue_partida == 'n':
+
                 menu_juego()
                 break
-
-        
-        
+    
         else:
 
+            ('No te moviste pa ningun lado')
+            time.sleep(3)
             continuar = 1
 
 def menu_juego():

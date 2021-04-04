@@ -8,12 +8,23 @@ class Jugador:
         self.contrasena = contrasena
         self.edad = edad
         self.avatar = avatar 
-        self.tiempo_partidas = [tiempo_partidas]
-        self.inventario = [inventario]
+        self.tiempo_partidas = []
+        self.inventario = []
         
     def mostrar(self):
         
-        return(f"Username: {self.username}\nEdad: {self.edad}\nAvatar: {self.avatar}\nInventario: {self.inventario}")
+        return(f"Username: {self.username}\nEdad: {self.edad}\nAvatar: {self.avatar}\n")
+
+    def mostrar_terminado(self):
+
+        # for x in range(len(self.tiempo_partidas)):
+            
+           return(f'{self.tiempo_partidas}')
+
+
+    def mostrar_avatar(self):
+
+        return(f'{self.avatar}')
     
     def agrego_objeto(self, item):
 
@@ -33,7 +44,10 @@ class Jugador:
                 break
 
         return valor_bool    
+    
+    def agrego_tiempo(self,tiempo):
 
+        self.tiempo_partidas.append(tiempo)
 
 
 

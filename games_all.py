@@ -5,8 +5,9 @@ import sympy as sy
 import math
 from jugador import Jugador
 from main import menu_juego
+from matrix import Matrix
 
-def adivinanzas(name_game, right_game,player, partida):
+def adivinanzas(name_game, right_game,player, partida, instanteInicial):
     
     print(right_game.get('name'))
     print(right_game.get('rules'))
@@ -71,12 +72,12 @@ def adivinanzas(name_game, right_game,player, partida):
                     partida.quito_vida(1/2)
                     if partida.game_over() == True:
         
-                        print (gg)
+                        se_acabo(player,instanteInicial)
                         menu_juego()
 
                     continuar = try_again()                
 
-def criptograma(name_game, right_game,player, partida):
+def criptograma(name_game, right_game,player, partida, instanteInicial):
     
     print(right_game.get('name'))
     # lista_preguntas = right_game.get('questions')
@@ -140,12 +141,12 @@ def criptograma(name_game, right_game,player, partida):
             partida.quito_vida(1/2)
             if partida.game_over() == True:
 
-                print (gg)
+                se_acabo(player,instanteInicial)
                 menu_juego()
 
             continuar = try_again()     
 
-def memoria(name_game, right_game, player, partida):
+def memoria(name_game, right_game, player, partida, instanteInicial):
     
     print(right_game.get('name'))
     print(right_game.get('rules'))
@@ -240,7 +241,13 @@ def memoria(name_game, right_game, player, partida):
         # Se le pide al usuario voltear el el segundo emoji
         print('')
 
-        option = int(input('Ingrese la casilla segunda casilla a voltear: '))
+        while True:
+            try: 
+                option = int(input('Ingrese la casilla a voltear: '))
+                break
+            except:
+                print("Ingreso Invalido.")
+                
         second_emoji = get_emoji(option)
         set_emoji(temp_table,option,second_emoji)
         print_table(temp_table)
@@ -250,12 +257,21 @@ def memoria(name_game, right_game, player, partida):
 
         # Si los dos emojis coinciden te actualiza la tabla
         if(firts_emoji == second_emoji):
+
             print('Los emojis iguales')
             memory_table = [list(row) for row in temp_table]
         else:
-            partida.quito_vida(1/4)
-            print('Los emojis no son iguales')
 
+            partida.quito_vida(1/4)
+            if partida.game_over() == True:
+        
+                se_acabo(player,instanteInicial)
+                menu_juego()
+
+            print(lose)
+            print('Los emojis no son iguales')
+            time.sleep(2)
+            continuar = try_again()
         # Verifica cuando se han encontrados todas las parejas de emoji y termina el juego
         if(memory_table == dataset):
             
@@ -266,7 +282,7 @@ def memoria(name_game, right_game, player, partida):
             to_be_continue()
             break
                                         
-def random_number(name_game, right_game,player, partida):
+def random_number(name_game, right_game,player, partida, instanteInicial):
 
     print(right_game.get('name'))
     print(right_game.get('rules'))
@@ -315,13 +331,13 @@ def random_number(name_game, right_game,player, partida):
 
             if partida.game_over() == True:
     
-                print (gg)
+                se_acabo(player,instanteInicial)
                 menu_juego()
 
             #quitarle cuantas vidas sean 
             continuar = try_again()
             
-def python_game(name_game, left_game,player, partida):
+def python_game(name_game, left_game,player, partida, instanteInicial):
     
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -380,7 +396,7 @@ def python_game(name_game, left_game,player, partida):
 
                     if partida.game_over() == True:
 
-                        print (gg)
+                        se_acabo(player,instanteInicial)
                         menu_juego()
 
                     continuar = try_again()
@@ -404,7 +420,7 @@ def python_game(name_game, left_game,player, partida):
                 partida.quito_vida(1/2)
                 if partida.game_over() == True:
     
-                    print(gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
                 
                 continuar = try_again()
@@ -474,12 +490,12 @@ def python_game(name_game, left_game,player, partida):
 
                     if partida.game_over() == True:
 
-                        print (gg)
+                        se_acabo(player,instanteInicial)
                         menu_juego()
 
                     continuar = try_again()
 
-def preguntas_mate(name_game, left_game,player, partida):
+def preguntas_mate(name_game, left_game,player, partida , instanteInicial):
 
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -535,7 +551,7 @@ def preguntas_mate(name_game, left_game,player, partida):
 
                 if partida.game_over() == True:
                     
-                    print (gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
 
                 continuar = try_again()
@@ -565,8 +581,8 @@ def preguntas_mate(name_game, left_game,player, partida):
                     print('Ingreso invalido')
 
             respuesta = round(respuesta,1)
-            print(type(respuesta))
-            print(respuesta)
+            # print(type(respuesta))
+            # print(respuesta)
             if respuesta == float(correcto):
 
                 print(win)
@@ -584,7 +600,7 @@ def preguntas_mate(name_game, left_game,player, partida):
 
                 if partida.game_over() == True:
                     
-                    print (gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
 
                 continuar = try_again()
@@ -614,8 +630,8 @@ def preguntas_mate(name_game, left_game,player, partida):
 
                     print('Ingreso invalido')
 
-            print(type(respuesta))
-            print(respuesta)
+            # print(type(respuesta))
+            # print(respuesta)
             respuesta = round(respuesta,1)
             if respuesta == correcto:
 
@@ -633,12 +649,12 @@ def preguntas_mate(name_game, left_game,player, partida):
                 partida.quito_vida(1/4)
                 if partida.game_over() == True:
                     
-                    print (gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
 
                 continuar = try_again()
                      
-def millonario(name_game,left_game,player, partida):
+def millonario(name_game,left_game,player, partida, instanteInicial):
 
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -691,12 +707,12 @@ def millonario(name_game,left_game,player, partida):
 
             if partida.game_over() == True:
 
-                print (gg)
+                se_acabo(player,instanteInicial)
                 menu_juego()
 
             continuar = try_again()
     
-def p_mezcladas(name_game,left_game,player, partida):
+def p_mezcladas(name_game,left_game,player, partida, instanteInicial):
     
     print(left_game.get('name'))
     print(left_game.get('rules'))
@@ -742,24 +758,95 @@ def p_mezcladas(name_game,left_game,player, partida):
 
                 if partida.game_over() == True:
     
-                    print (gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
 
                 continuar = try_again() 
 
             elif x == 'pista':
 
-                print('Aqui no hay pista')
+                print('Aqui no hay pistas')
                 pass
 
-def sopa_letras(name_game, center_game, player, partida):
+def sopa_letras(name_game, center_game, player, partida, instanteInicial):   
     
     print(center_game.get('name'))
     print(center_game.get('rules'))
-    # partida.agrego_vida(1)
-    # partida.quito_vida(1/2)
-# soupppppppppp
-def ahorcado(name_game, center_game,player,partida):
+
+    lista_preguntas = center_game.get('questions')
+    pregunta = random.randint(0,3)
+    juego = lista_preguntas[pregunta]
+    DIM = 15
+
+    palabras = [juego.get('answer_1').lower(),juego.get('answer_2').lower(),juego.get('answer_3').lower(),'zxahfyd']
+    
+    matriz = Matrix(DIM)
+    while matriz.libres:
+        palabra = palabras[random.randint(0, len(palabras) - 1)]
+        largo = len(palabra)
+        matriz.put(palabra)
+
+    
+    continuar = 1
+    palabra_menos = 3
+    while continuar == 1:
+        print(matriz)
+        # print(matriz.palabras)  
+        respuesta = input('Indique que palabra encuentra\n>>')
+        while not ("".join(respuesta.split(" "))).isalpha():
+            respuesta = input("Ingreso invalido, ingrese la respuesta :\n >>")
+        
+        if respuesta == juego.get('answer_1').lower() or respuesta == juego.get('answer_2').lower() or respuesta == juego.get('answer_3').lower():
+
+            palabra_menos = palabra_menos - 1
+            print('CORRECTO SIGUE ASI!')
+            if palabra_menos == 0:
+
+                print(win)
+                partida.agrego_vida(1)
+                print('Obtuviste -->', center_game.get('award'))
+                continuar = 0
+                break
+        
+        elif respuesta == 'pista':
+                
+            if partida.quito_pista(1) == True and pista < 3:
+    
+                if pista == 1:
+    
+                    print(juego.get('clue_1'))
+                    buen_continue()
+
+                if pista == 2:
+    
+                    print(juego.get('clue_2'))
+                    buen_continue()
+
+                if pista == 3:
+
+                    print(juego.get('clue_3'))
+                    buen_continue()
+
+                pista = pista + 1
+            
+            elif partida.quito_pista(1) == False or pista > 3:
+    
+                print('No + pistas en este juego')
+                buen_continue()
+
+        else:
+
+            print('Incorrecta tu palabra media vida menos')
+            partida.quito_vida(1/2)
+
+            if partida.game_over() == True:
+            
+                se_acabo(player,instanteInicial)
+                menu_juego()
+
+            continuar = try_again()
+
+def ahorcado(name_game, center_game,player, partida, instanteInicial):
     
     print(center_game.get('name'))
     print(center_game.get('rules'))
@@ -769,7 +856,7 @@ def ahorcado(name_game, center_game,player,partida):
     print(juego.get('question'))
 
     palabra = juego.get('answer')
-    print(palabra)
+    # print(palabra)
     print ("Start")
 
     word = palabra.lower()
@@ -779,29 +866,20 @@ def ahorcado(name_game, center_game,player,partida):
     pista = 1
     while continuar == 1:         
 
-        # make a counter that starts with zero
         failed = 0             
 
-        # for every character in secret_word    
         for char in word:      
 
-        # see if the character is in the players guess
             if char in guesses:    
         
-            # print then out the character
                 print (char)    
 
             else:
         
-            # if not found, print a dash
                 print ("_")     
         
-            # and increase the failed counter with one
                 failed += 1    
 
-        # if failed is equal to zero
-
-        # print You Won
         if failed == 0:   
 
             print(win)
@@ -810,10 +888,8 @@ def ahorcado(name_game, center_game,player,partida):
             to_be_continue()
             continuar = 0
             break 
-        # exit the script
                 
 
-        # ask the user go guess a character
         letra_letra = input("guess a character:") 
         while not ("".join(letra_letra.split(" "))).isalpha():
             letra_letra = input("Ingreso invalido, ingrese una letra:\n >> ")
@@ -846,30 +922,24 @@ def ahorcado(name_game, center_game,player,partida):
                 print('No + pistas en este juego')
                 buen_continue()
 
-        # set the players guess to guesses
-                            
 
-        # if the guess is not found in the secret word
         elif letra_letra not in word:     
-        # print wrong
 
             print ("Wrong, perdiste 1/4 de vida")
             partida.quito_vida(1/4)
 
             if partida.game_over() == True:
         
-                print(gg)
+                se_acabo(player,instanteInicial)
                 menu_juego()
 
             continuar = try_again()
      
-def solve_logic(name_game,center_game,player, partida):
+def solve_logic(name_game,center_game,player, partida, instanteInicial):
     
     print(center_game.get('name'))
     print(center_game.get('rules'))
-    print('NOOOOO, pisaste el saman perdiste una vida cuidado!!')
-    partida.quito_vida(1)
-    # poner el game over aqui 
+
     lista_preguntas = center_game.get('questions')
     pregunta = random.randint(0,1)
     juego = lista_preguntas[pregunta]
@@ -908,7 +978,7 @@ def solve_logic(name_game,center_game,player, partida):
                 partida.quito_vida(1)
                 if partida.game_over() == True:
         
-                    print(gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()        
                 continuar = try_again()
         
@@ -943,14 +1013,14 @@ def solve_logic(name_game,center_game,player, partida):
 
                 if partida.game_over() == True:
     
-                    print(gg)
+                    se_acabo(player,instanteInicial)
                     menu_juego()
 
                 continuar = try_again()
 
         #print(juego.get('questions'))
 
-def logic_bool(name_game,center_game, player, partida):
+def logic_bool(name_game,center_game, player, partida, instanteInicial):
 
     print(center_game.get('name'))
     print(center_game.get('rules'))
@@ -983,14 +1053,14 @@ def logic_bool(name_game,center_game, player, partida):
 
             if partida.game_over() == True:
     
-                print (gg)
+                se_acabo(player,instanteInicial)
                 menu_juego()
 
             continuar = try_again()
 
-def refranes(player, partida):
+def refranes(player, partida, instanteInicial):
     
-    refranes = ['Camaron que se duerme...' , 'Guerra avisada...', 'Tres tristes tigres...', 'De tal palo...', '']
+    refranes = ['Camaron que se duerme...' , 'Guerra avisada...', 'Tres tristes tigres...', 'De tal palo...']
 
     answer = ['se lo lleva la corriente', 'no mata soldado', 'comen trigo en un trigal', 'tal astilla']
 
@@ -1011,7 +1081,8 @@ def refranes(player, partida):
         if respuesta == answer[pregunta]:
 
             print(win)
-            continuar = 0
+            end_game(player,partida)
+            menu_juego()
             break
             
         else:
@@ -1021,7 +1092,7 @@ def refranes(player, partida):
 
             if partida.game_over() == True:
     
-                print (gg)
+                se_acabo(player,instanteInicial)
                 menu_juego()
 
             continuar = try_again()
