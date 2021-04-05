@@ -353,9 +353,9 @@ def comienza_partida(new_game):
                 elif x == 2:
 
                     list_awards = center_game.get('requirement')
-                    print(list_awards)
+                    # print(list_awards)
                     first_award = list_awards[0]
-                    print(first_award)
+                    # print(first_award)
                     second_award = list_awards[1]
                     print(second_award)
                     valido_1 = new_game.check_inventario(first_award)
