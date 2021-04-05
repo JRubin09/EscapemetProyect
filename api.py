@@ -11,7 +11,6 @@ def api_call():
 
     return response.json()
     
-
 def try_again():
     continuar = 1
     while continuar == 1:
@@ -31,7 +30,6 @@ def try_again():
 
 def to_be_continue():
 
-    print('Se agregara a tu inventario!')
     time.sleep(3)
 
 def buen_continue():
@@ -47,22 +45,21 @@ def buen_continue():
     if sigue_partida == 'c':
         pass
 
-def primer_discurso(partida):
+def primer_discurso(new_game):
       
-  show_time = partida.mostrar_tiempo()
+  show_time = new_game.mostrar_tiempo()
   primera_narra = (f'''
   Hoy 5 de marzo de 2021, la Universidad sigue en cuarentena(esto no es novedad), lo que sí es   
   novedad es que se robaron un Disco Duro de la Universidad del cuarto de redes que tiene toda 
   la información de SAP de estudiantes, pagos y  asignaturas. Necesitamos que nos ayudes a 
-  recuperar el disco, para eso tienes: {show_time} antes de que el servidor se caiga 
+  recuperar el disco, para eso tienes: {show_time} minutos antes de que el servidor se caiga 
                       y no se pueda hacer más nada.''') 
   
   print(primera_narra)
 
+def segundo_discurso(new_game):
 
-def segundo_discurso(player):
-
-    show_avatar = player.mostrar_avatar()
+    show_avatar = new_game.mostrar_avatar()
     segunda_narra = (f'''
     Bienvenido {show_avatar}, gracias por tu disposición a ayudarnos a resolver 
     este inconveniente, te encuentras actualmente ubicado en la biblioteca, revisa 
@@ -71,36 +68,21 @@ def segundo_discurso(player):
 
     print(segunda_narra)
 
-def end_game(player,partida):
+def end_game(new_game):
 
-    show_avatar = player.mostrar_avatar()
-    show_time = player.mostrar_tiempo()
+    show_avatar = new_game.mostrar_avatar()
+    show_time = new_game.mostrar_tiempo()
     
     ultima_narra = (f'''
     ¡Felicidades! Has logrado evitar una catástrofe en la Unimet, entonces lograste 
-    todos los objetivos {show_avatar} tenias {show_time} y lo lograste en tal tiempo increible tu record
+    todos los objetivos {show_avatar} tenias {show_time} minutos y lo lograste en tal tiempo increible tu record
     quedara para la historia vuelve a jugar en otra dificultad para mejorarlo!''')
     
     print(ultima_narra)
 
-
-def se_acabo(player,instanteInicial):
+def se_acabo(new_game, instanteInicial):
 
     print(gg)
-    instanteFinal = datetime.datetime.now().minute
-    tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
-    # segundos = tiempo.seconds
-    # minutos = tiempo
-    print(tiempo)
-    # print(segundos)
-    # print(minutos)
-    player.agrego_tiempo(minutos)
-    print("Estos son tus records en minutos: ")
-    print(player.mostrar_terminado())
-    time.sleep(3)
-
-def ganador(player, instanteInicial):
-
     instanteFinal = datetime.datetime.now().minute
     tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
     # segundos = tiempo.seconds
@@ -108,9 +90,25 @@ def ganador(player, instanteInicial):
     print(tiempo)
     # print(segundos)
     # print(minutos)
-    player.agrego_tiempo(minutos)
-    print(gratz)
+    new_game.agrego_tiempo(minutos)
     print("Estos son tus records en minutos: ")
-    print(player.mostrar_terminado())
+    print(new_game.mostrar_terminado())
+    time.sleep(3)
+
+def ganador(new_game, instanteInicial):
+
+    instanteFinal = datetime.datetime.now().minute
+    tiempo = instanteFinal - instanteInicial # Devuelve un objeto timedelta
+    # segundos = tiempo.seconds
+    minutos = tiempo
+    # print(tiempo)
+    # print(segundos)
+    # print(minutos)
+    new_game.agrego_tiempo(minutos)
+    print(gratz)
+    print(f"Lo lograste en {tiempo} minutos felicidades!")
+    print("Estos son tus records en minutos: ")
+    print(new_game.mostrar_terminado())
     time.sleep(10)
+    
 

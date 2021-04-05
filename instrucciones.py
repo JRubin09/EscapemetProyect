@@ -31,9 +31,10 @@ def instrucciones():
     W ---> Para elegir el objeto que esta en el medio
     A ---> Para elegir el objeto que esta a la izquierda
     D ---> Para elegir el objeto que esta a la derecha
-    S ---> Para devolverte de cuarto 
+    S ---> Para ir al cuarto que hay antes de ese 
     SPACE ---> Para ir al siguiente cuarto
-    P ---> Para poner Pausa y ves tus vidas, pistas y el tiempo que te queda
+    M ---> Para ver este mismo menu de juego
+    I ---> Para ver tu inventario
     OJO: Cuidado! 
     Completando cuartos obtendras objetos para seguir adelante...
     Dependiendo de la dificultad vas a tener una cierta cantidad de vidas y pistas, tambien

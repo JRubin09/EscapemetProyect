@@ -50,6 +50,8 @@ class Partida:
 
         self.vidas = self.vidas + num
 
-        
+    def ded_time(self):
+    
+        return (self.tiempo)
 
     
