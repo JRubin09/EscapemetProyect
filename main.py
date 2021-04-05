@@ -106,7 +106,7 @@ def partida_nueva():
 
     try:
 
-        with open("Database.txt") as db:
+        with open("Database.txt","a+") as db:
             datos = db.readlines()
 
     except FileNotFoundError:

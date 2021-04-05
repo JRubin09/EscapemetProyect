@@ -344,9 +344,9 @@ def random_number(name_game, right_game, new_game, instanteInicial):
 
             print('Equivocado, sigue intentando\n')
             attempts = attempts + 1
-            continuar = 1
+            
 
-        elif attempts == 3:
+        if attempts == 3:
 
             print(lose)
             new_game.quito_vida(1/4)
@@ -362,6 +362,7 @@ def random_number(name_game, right_game, new_game, instanteInicial):
             if continuar == 0:
                 
                 return 0
+        
             
 def python_game(name_game, left_game, new_game, instanteInicial):
     
