@@ -332,8 +332,8 @@ def random_number(name_game, right_game, new_game, instanteInicial):
             print(win)
             print(f'Felicidades obtuviste el objeto:',right_game.get('award'))
             titulo_mod = right_game.get('award').replace('í','i').title()
-            print(titulo_mod)
-            print(type(titulo_mod))
+            # print(titulo_mod)
+            # print(type(titulo_mod))
             new_game.agrego_objeto(titulo_mod)
 
             to_be_continue()

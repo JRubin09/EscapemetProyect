@@ -97,6 +97,7 @@ def se_acabo(new_game, instanteInicial):
 	    datos = db.write(add)
 
     print("Estos son tus records en minutos: ")
+    end_game(new_game)
     print(new_game.mostrar_terminado())
     time.sleep(3)
 
